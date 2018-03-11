@@ -1,13 +1,16 @@
-import { css } from 'react-emotion';
+import styled from 'react-emotion';
 
-export const styles = css({
+const BoardContainer = styled('div')(props => ({
   display: 'grid',
-  gridTemplateColumns: 'repeat(50, 15px)',
-  gridTemplateRows: 'repeat(30, 15px)',
+  gridTemplateColumns: `repeat(${props.gridcolumns}, 15px)`,
+  gridTemplateRows: `repeat(${props.gridrows}, 15px)`,
   gridGap: '1px',
   padding: '2px',
   backgroundColor: '#F98B9E',
-  '& div': {
-    backgroundColor: '#333333'
-  }
-})
+}));
+
+export const Block = styled('div')(props => ({
+  backgroundColor: props.blockLife === 'dead' ? '#333333' : '#BB39F8',
+}));
+
+export default BoardContainer

@@ -1,22 +1,51 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-import { styles } from './Board_styles';
+import BoardContainer, { Block } from './Board_styles';
 
-//create correct number of blocks for game size
-function createBlocks() {
-  const blocks = [];
-  for (let i = 0; i < 1500; i++) {
-   blocks.push(<div key={i}></div>)
+export default class Board extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      blocks: []
+    };
   }
-  return blocks.map(block => block)
-}
 
-const Board = () => {
-  return (
-    <div className={styles} >
-      {createBlocks()}
-    </div>
-  )
-}
+  componentDidMount() {
+    this.createBlocks(1500);
+  }
 
-export default Board;
+  changeBlockLife(block) {
+    let { blocks } = this.state
+    let newBlockLife = '';
+    blocks[block][1] === 'alive' ? (newBlockLife = 'dead') : (newBlockLife = 'alive');
+    blocks.splice(block, 1, [block, newBlockLife]);
+    this.setState({ blocks });
+  }
+
+  createBlocks(number) {
+    const blocks = [];
+    for (let block = 0; block < number; block++) {
+      let blockLife = Math.random() >= 0.8 ? 'alive' : 'dead';
+      blocks.push([block, blockLife]);
+    }
+    return this.setState({ blocks });
+  }
+
+  render() {
+    return (
+      <BoardContainer gridcolumns={50} gridrows={30}>
+        {this.state.blocks.map(block => {
+          const blocknumber = block[0];
+          const blocklife = block[1];
+          return (
+            <Block
+              blockLife={blocklife}
+              onClick={() => this.changeBlockLife(blocknumber)}
+              key={blocknumber}
+            />
+          );
+        })}
+      </BoardContainer>
+    );
+  }
+}
