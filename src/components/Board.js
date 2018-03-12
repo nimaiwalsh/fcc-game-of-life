@@ -6,42 +6,49 @@ export default class Board extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      blocks: []
+      blocks: [],
+      columns: 50,
+      rows: 30,
     };
   }
 
   componentDidMount() {
-    this.createBlocks(1500);
+    const { columns, rows } = this.state;
+    this.createBlocksBoard(columns, rows);
   }
 
-  changeBlockLife(block) {
-    let { blocks } = this.state
-    let newBlockLife = '';
-    blocks[block][1] === 'alive' ? (newBlockLife = 'dead') : (newBlockLife = 'alive');
-    blocks.splice(block, 1, [block, newBlockLife]);
-    this.setState({ blocks });
+  handleChangeBlockLife(block) {
+    this.setState(prevState => {
+      prevState.blocks[block].isAlive = !prevState.blocks[block].isAlive;
+      return {
+        blocks: prevState.blocks
+      }
+    })
   }
 
-  createBlocks(number) {
+  createBlocksBoard(columns, rows) {
     const blocks = [];
-    for (let block = 0; block < number; block++) {
-      let blockLife = Math.random() >= 0.8 ? 'alive' : 'dead';
-      blocks.push([block, blockLife]);
+    for (let i = 1; i <= rows; i++) {
+      for (let j = 1; j <= columns; j++){
+        let isAlive = Math.random() >= 0.8 ? true : false;
+        blocks.push({isAlive: isAlive, row: i, column: j});
+      }
     }
     return this.setState({ blocks });
   }
 
   render() {
+    const { rows, columns } = this.state;
     return (
-      <BoardContainer gridcolumns={50} gridrows={30}>
-        {this.state.blocks.map(block => {
-          const blocknumber = block[0];
-          const blocklife = block[1];
+      <BoardContainer gridcolumns={columns} gridrows={rows}>
+        {this.state.blocks.map((block, index) => {
+          const blocklife = block.isAlive;
           return (
             <Block
-              blockLife={blocklife}
-              onClick={() => this.changeBlockLife(blocknumber)}
-              key={blocknumber}
+              isAlive={blocklife}
+              onClick={() => this.handleChangeBlockLife(index)}
+              key={index}
+              id={index}
             />
           );
         })}

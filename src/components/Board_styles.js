@@ -10,7 +10,7 @@ const BoardContainer = styled('div')(props => ({
 }));
 
 export const Block = styled('div')(props => ({
-  backgroundColor: props.blockLife === 'dead' ? '#333333' : '#BB39F8',
+  backgroundColor: props.isAlive ? '#BB39F8' : '#333333',
 }));
 
 export default BoardContainer
