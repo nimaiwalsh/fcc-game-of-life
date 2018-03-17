@@ -1,12 +1,12 @@
 import React from 'react';
 import ControlPanelContainer from './ControlPanel_styles';
 
-const ControlPanel = () => {
+const ControlPanel = (props) => {
   return(
     <ControlPanelContainer>
-      <button>Run</button>
-      <button>Pause</button>
-      <button>Clear</button>
+      <button onClick={() => props.handleRun()}>Run</button>
+      <button onClick={() => props.handlePause()}>Pause</button>
+      <button onClick={() => props.handleClear()}>Clear</button>
     </ControlPanelContainer>
   )
 }

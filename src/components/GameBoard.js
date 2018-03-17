@@ -14,13 +14,17 @@ export default class GameBoard extends Component {
       generationCount: 0
     };
 
-    this.createInitialGenerationOfBlocks = this.createInitialGenerationOfBlocks.bind(this);
+    this.createGenerationOfBlocks = this.createGenerationOfBlocks.bind(this);
     this.nextGenerationOfBlocks = this.nextGenerationOfBlocks.bind(this);
+    this.handleChangeBlockLife = this.handleChangeBlockLife.bind(this);
+    this.handleClear = this.handleClear.bind(this);
+    this.handlePause = this.handlePause.bind(this);
+    this.handleRun = this.handleRun.bind(this);
   }
 
   componentDidMount() {
-    this.createInitialGenerationOfBlocks();
-    this.interval = setInterval(() => this.nextGenerationOfBlocks(), 500);
+    this.createGenerationOfBlocks(false);
+    this.generationSpeed();
   }
 
   handleChangeBlockLife(row, col) {
@@ -33,15 +37,36 @@ export default class GameBoard extends Component {
     });
   }
 
-  createInitialGenerationOfBlocks() {
+  handleClear() {
+    //kill every block on the board
+    this.createGenerationOfBlocks(true);
+    clearInterval(this.interval);
+  }
+
+  handlePause() {
+    clearInterval(this.interval);
+  }
+
+  handleRun() {
+    clearInterval(this.interval);
+    this.generationSpeed();
+  }
+
+  generationSpeed(run) {
+    this.interval = setInterval(() => this.nextGenerationOfBlocks(), 500);
+  }
+
+  createGenerationOfBlocks(clear) {
     //Create x rows of y blocks and set the board
     const { columns, rows } = this.state;
     const boardOfBlocks = [];
     for (let i = 0; i < rows; i++) {
       const row = [];
       for (let j = 0; j < columns; j++) {
+        //kill all block lives or create random block lives
+        let isAlive;
+        (clear) ? isAlive = false : isAlive = Math.random() >= 0.8 ? true : false;
         // randomly change the life of each block
-        let isAlive = Math.random() >= 0.8 ? true : false;
         row.push({ isAlive: isAlive, row: i, column: j });
       }
       boardOfBlocks.push(row);
@@ -103,7 +128,11 @@ export default class GameBoard extends Component {
     return(
       <Container>
         <div>
-          <ControlPanel />
+          <ControlPanel 
+            handleRun={this.handleRun}
+            handlePause={this.handlePause}
+            handleClear={this.handleClear}
+          />
           <Board 
             rows={rows} 
             columns={columns} 
