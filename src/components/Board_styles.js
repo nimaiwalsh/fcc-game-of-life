@@ -7,6 +7,7 @@ const BoardContainer = styled('div')(props => ({
   gridGap: '1px',
   padding: '2px',
   backgroundColor: '#F98B9E',
+  boxShadow: '-10px 10px 100px black',
 }));
 
 export const Block = styled('div')(props => ({

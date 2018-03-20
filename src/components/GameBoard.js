@@ -11,12 +11,15 @@ export default class GameBoard extends Component {
       boardOfBlocks: [],
       columns: 50,
       rows: 30,
-      generationCount: 0
+      generationCount: 0,
+      speed: 1,
     };
 
     this.createGenerationOfBlocks = this.createGenerationOfBlocks.bind(this);
     this.nextGenerationOfBlocks = this.nextGenerationOfBlocks.bind(this);
     this.handleChangeBlockLife = this.handleChangeBlockLife.bind(this);
+    this.handleSpeedup = this.handleSpeedup.bind(this);
+    this.handleSlow = this.handleSlow.bind(this);
     this.handleClear = this.handleClear.bind(this);
     this.handlePause = this.handlePause.bind(this);
     this.handleRun = this.handleRun.bind(this);
@@ -37,6 +40,26 @@ export default class GameBoard extends Component {
     });
   }
 
+  handleSlow() {
+    //Slow gamespeed to 1x and not below
+    if (this.state.speed > 1) {
+      clearInterval(this.interval);
+      this.setState(prevState => {
+        return { speed: prevState.speed - 1 };
+      }, this.generationSpeed);
+    }
+  }
+
+  handleSpeedup() {
+    //Increase generation gamespeed to 4x and not higher
+    if (this.state.speed < 4) {
+      clearInterval(this.interval);
+      this.setState(prevState => {
+        return { speed: prevState.speed + 1 };
+      }, this.generationSpeed);
+    }
+  }
+
   handleClear() {
     //kill every block on the board
     this.createGenerationOfBlocks(true);
@@ -52,8 +75,10 @@ export default class GameBoard extends Component {
     this.generationSpeed();
   }
 
-  generationSpeed(run) {
-    this.interval = setInterval(() => this.nextGenerationOfBlocks(), 500);
+  generationSpeed() {
+    const { speed } = this.state
+    const speedInMicroseconds = {1:500, 2:300, 3:100, 4:50}
+    this.interval = setInterval(this.nextGenerationOfBlocks, speedInMicroseconds[speed]);
   }
 
   createGenerationOfBlocks(clear) {
@@ -87,10 +112,10 @@ export default class GameBoard extends Component {
     const { boardOfBlocks }= this.state;
     const newGenerationBlocks = [];
     //Check each current block in each row
-    boardOfBlocks.map((row, rowIndex) => {
+    boardOfBlocks.forEach((row, rowIndex) => {
       let newGenerationRow = [];
       //Count how many alive neighbours it has
-      row.map((block, blockIndex) => {
+      row.forEach((block, blockIndex) => {
         let aliveNeighbours = 0;
         this.isNeighbourAlive(boardOfBlocks, rowIndex - 1, blockIndex - 1) && (aliveNeighbours += 1);
         this.isNeighbourAlive(boardOfBlocks, rowIndex - 1, blockIndex) && (aliveNeighbours += 1);
@@ -113,7 +138,7 @@ export default class GameBoard extends Component {
           newGenerationRow[blockIndex] = {isAlive: true, row: rowIndex, column: blockIndex};
         }
       });
-      newGenerationBlocks.push(newGenerationRow)
+       newGenerationBlocks.push(newGenerationRow)
     });
     this.setState(prevState => {
       return {
@@ -129,9 +154,11 @@ export default class GameBoard extends Component {
       <Container>
         <div>
           <ControlPanel 
+            handleSlow={this.handleSlow}
             handleRun={this.handleRun}
             handlePause={this.handlePause}
             handleClear={this.handleClear}
+            handleSpeedup={this.handleSpeedup}
           />
           <Board 
             rows={rows} 
