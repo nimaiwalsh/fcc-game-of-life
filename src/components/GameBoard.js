@@ -63,6 +63,7 @@ export default class GameBoard extends Component {
   handleClear() {
     //kill every block on the board
     this.createGenerationOfBlocks(true);
+    this.setState({ speed: 1, generationCount: 0 });
     clearInterval(this.interval);
   }
 
@@ -149,7 +150,7 @@ export default class GameBoard extends Component {
   }
 
   render() {
-    const { rows, columns, boardOfBlocks } = this.state;
+    const { rows, columns, boardOfBlocks, speed, generationCount } = this.state;
     return(
       <Container>
         <div>
@@ -159,6 +160,8 @@ export default class GameBoard extends Component {
             handlePause={this.handlePause}
             handleClear={this.handleClear}
             handleSpeedup={this.handleSpeedup}
+            speed={speed}
+            generationCount={generationCount}
           />
           <Board 
             rows={rows} 

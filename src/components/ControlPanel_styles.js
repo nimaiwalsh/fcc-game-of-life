@@ -1,6 +1,24 @@
 import styled from 'react-emotion';
 
-const ControlPanelContainer = styled('div')((props) => ({
+export const ControlPanelContainer = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+export const InfoDisplay = styled('div')({
+  '& div': {
+    display: 'inline-block',
+    margin: '0 20px'
+  },
+  '& div > span': {
+    display: 'block',
+    fontSize: '2rem',
+    textAlign: 'center'
+  }
+});
+
+export const ControlPanelButtons = styled('div')(props => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -15,14 +33,14 @@ const ControlPanelContainer = styled('div')((props) => ({
     borderRadius: '50%',
     border: '3px solid',
     padding: '5px',
-    transition: 'background-color .5s',
+    transition: 'background-color .5s'
   },
   '& div:hover': {
     backgroundColor: '#857F87',
-    cursor: 'pointer',
+    cursor: 'pointer'
   },
   '& div:active': {
-    transform: 'translateY(2px)',
+    transform: 'translateY(2px)'
   },
   '& div:first-child, div:last-child': {
     height: '25px',
@@ -55,8 +73,6 @@ const ControlPanelContainer = styled('div')((props) => ({
   },
   '& svg': {
     width: '20px',
-    height: '20px',
-  },
-}))
-
-export default ControlPanelContainer
+    height: '20px'
+  }
+}));
