@@ -9,12 +9,14 @@ export const ControlPanelContainer = styled('div')({
 export const InfoDisplay = styled('div')({
   '& div': {
     display: 'inline-block',
-    margin: '0 20px'
+    margin: '0 20px',
+    color: '#FFFFFF'
   },
   '& div > span': {
     display: 'block',
-    fontSize: '2rem',
-    textAlign: 'center'
+    fontSize: '2.5rem',
+    textAlign: 'center',
+    color: '#EB909F',
   }
 });
 

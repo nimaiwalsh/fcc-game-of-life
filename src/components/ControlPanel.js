@@ -1,5 +1,5 @@
 import React from 'react';
-import { ControlPanelContainer, ControlPanelButtons, InfoDisplay, BoardButtons } from './ControlPanel_styles';
+import { ControlPanelContainer, ControlPanelButtons, InfoDisplay } from './ControlPanel_styles';
 import { Play, Pause, Slowdown, Speedup } from '../assets/icons.js';
 
 const ControlPanel = (props) => {
@@ -7,7 +7,7 @@ const ControlPanel = (props) => {
   return(
     <ControlPanelContainer>
       <InfoDisplay>
-        <div>Speed <span>{speed}</span></div>
+        <div>Speed <span>{speed}x</span></div>
       </InfoDisplay>
       <ControlPanelButtons>
         <div onClick={() => props.handleSlow()}><Slowdown/></div>  

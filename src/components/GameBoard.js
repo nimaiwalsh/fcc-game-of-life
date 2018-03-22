@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Board from './Board';
+import BoardSizeControls from './BoardSizeControls';
 import ControlPanel from './ControlPanel';
 import { Container } from './StyledComponents';
 
@@ -23,6 +24,7 @@ export default class GameBoard extends Component {
     this.handleClear = this.handleClear.bind(this);
     this.handlePause = this.handlePause.bind(this);
     this.handleRun = this.handleRun.bind(this);
+    this.handleBoardSize = this.handleBoardSize.bind(this);
   }
 
   componentDidMount() {
@@ -74,6 +76,17 @@ export default class GameBoard extends Component {
   handleRun() {
     clearInterval(this.interval);
     this.generationSpeed();
+  }
+
+  handleBoardSize(size) {
+    const boardSize = { small: [50, 30], medium: [60, 40], large: [70, 50] };
+    this.setState({ 
+      speed: 1, 
+      generationCount: 0, 
+      columns: boardSize[size][0], 
+      rows: boardSize[size][1],
+      boardOfBlocks: [],
+    }, this.createGenerationOfBlocks);
   }
 
   generationSpeed() {
@@ -168,6 +181,9 @@ export default class GameBoard extends Component {
             columns={columns} 
             boardOfBlocks={boardOfBlocks} 
             handleClick={(col, row) => this.handleChangeBlockLife(col, row)}
+          />
+          <BoardSizeControls 
+            onHandleBoardSize={this.handleBoardSize}
           />
         </div>
       </Container>
