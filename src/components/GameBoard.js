@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Board from './Board';
 import BoardSizeControls from './BoardSizeControls';
 import ControlPanel from './ControlPanel';
-import { Container } from './StyledComponents';
+import { Container } from './GameBoard_styles';
 
 export default class GameBoard extends Component {
   constructor(props) {
