@@ -39,7 +39,7 @@ export const ControlPanelButtons = styled('div')(props => ({
   },
   '& div:hover': {
     backgroundColor: '#857F87',
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   '& div:active': {
     transform: 'translateY(2px)'
