@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import Board from './Board';
 import BoardSizeControls from './BoardSizeControls';
 import ControlPanel from './ControlPanel';
-import { Container } from './GameBoard_styles';
+import Instructions from './Instructions';
+import { Container, InstructionsButton } from './GameBoard_styles';
 
 export default class GameBoard extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ export default class GameBoard extends Component {
       rows: 30,
       generationCount: 0,
       speed: 1,
+      displayInstructions: false,
     };
 
     this.createGenerationOfBlocks = this.createGenerationOfBlocks.bind(this);
@@ -25,6 +27,7 @@ export default class GameBoard extends Component {
     this.handlePause = this.handlePause.bind(this);
     this.handleRun = this.handleRun.bind(this);
     this.handleBoardSize = this.handleBoardSize.bind(this);
+    this.handleInstructions = this.handleInstructions.bind(this);
   }
 
   componentDidMount() {
@@ -87,6 +90,10 @@ export default class GameBoard extends Component {
       rows: boardSize[size][1],
       boardOfBlocks: [],
     }, this.createGenerationOfBlocks);
+  }
+
+  handleInstructions() {
+    this.setState({displayInstructions: !this.state.displayInstructions})
   }
 
   generationSpeed() {
@@ -165,6 +172,7 @@ export default class GameBoard extends Component {
   render() {
     const { rows, columns, boardOfBlocks, speed, generationCount } = this.state;
     return(
+      <Fragment>
       <Container>
         <div>
           <ControlPanel 
@@ -187,6 +195,9 @@ export default class GameBoard extends Component {
           />
         </div>
       </Container>
+      <InstructionsButton onClick={this.handleInstructions}>Instructions</InstructionsButton>
+      <Instructions display={this.state.displayInstructions}/>
+      </Fragment>
     )
   }
 }
