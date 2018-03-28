@@ -1,25 +1,22 @@
 ## FCC Game of Life
 
 ## Finished project
-https://nimaiwalsh.github.io/fcc-recipe-box/
+https://nimaiwalsh.github.io/fcc-game-of-life/
 
 ## Built with
 - React
-- Redux
 - emotion.js - CSS-in-JS
 
 ## Project Overview
-A recipe box used to store your favourite recipes. It alows you to add/remove recipes and edit current recipes. It stores recipes in cache using your browser local storage.
+Conways Game of Life built with React - https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
 
 ### Things I learned
-1. The flow of data in Redux - Calling action creators and passing local state, manipulating the data in the reducer for before passing it to the Apps global store.
-2. Using CSS-in-JS - Creating styled components using Emotion.js
-3. Using cache and storing the apps state into the browser Local Storage.
+1. Mapping through an array and producing a large number of Div's does not effect browser performance, React is fast and re-renders the virtual efficiently and only passes the changes to the browser.
+2. Getting better at styling using CSS-in-JSS. Passing properties/variables to to CSS is effective.
+3. Using react-transition-group for adding simple css transitions i.e Instructions page slides in.
 
 ### Challenges
-1. Getting familiar with Redux data flow and methods.
-2. The whole concept of CSS-in-JS.
+1. Creating the logic of the board. Figuring out how to reference the neighbouring blocks to tally up the neighbouring block count each cycle.
 
 ###Tips:
-Use 'basename' property in React Routers - Browser Router to ensure routes work correctly on your hosted service.
-<BrowserRouter basename={process.env.PUBLIC_URL} >
+keep at it! Consistency is key.

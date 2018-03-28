@@ -15,5 +15,10 @@ export const InstructionsButton = styled('div')({
   position: 'absolute',
   top: '300px',
   left: '-42px',
-  borderRadius: '0 0 10px 10px'
+  borderRadius: '0 0 10px 10px',
+  '&:hover': {
+    backgroundColor: '#AC49F0',
+    cursor: 'pointer',
+    color: '#FFF'
+  }
 })

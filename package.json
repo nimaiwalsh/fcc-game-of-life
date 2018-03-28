@@ -1,9 +1,14 @@
 {
   "name": "fcc-game-of-life",
+  "homepage": "https://nimaiwalsh.github.io/fcc-game-of-life",
+  "author": {
+    "name": "Nimai Walsh"
+  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "emotion": "^9.0.2",
+    "gh-pages": "^1.1.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-emotion": "^9.0.2",
@@ -11,6 +16,8 @@
     "react-transition-group": "^2.2.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
